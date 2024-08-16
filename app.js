@@ -1,17 +1,11 @@
 // Exercise 1 Section
 function printOdds(count) 
 {
-    if (count <= 0) 
+    for (let i = 1; i <= Math.abs(count); i++) 
         {
-            console.log("This is not a valid number.");
-            return;
-        }
-
-    for (let i = 1; i <= count; i++) 
-        {
-            if (i % 2 !== 0) 
+            if (i % 2 != 0) 
                 {
-                    console.log(i);
+                    console.log(i * Math.sign(count));
                 }
         }
 }
@@ -128,11 +122,11 @@ function dataUsage(planLimit, day, usage)
     let daysLeft = days - day;
     let averageLimit = planLimit / days;
     let averageUsed = usage / day;
-    let requiredDailyAverage = (planLimit - usage) / daysLeft;
-    let exceededLimitAmount = (averageUsed * days) - planLimit;
+    let projectedUsage = averageUsed * days;
+    let exceededLimitAmount = projectedUsage - planLimit;
     if(usage > planLimit)
         {
-            return console.log("You've exceeded your 30 day data limit");
+            return console.log(`You've exceeded your 30 day data limit by ${usage - planLimit}`);
         }
     if(day > days)
         {
@@ -147,9 +141,9 @@ function dataUsage(planLimit, day, usage)
             console.log(`You have exceeded your average daily use by
                 ${averageUsed - averageLimit} GB, if you continue this rate
                 of data usage, you'll exceed your data plan by
-                ${exceededLimitAmount} GB. If you would like to not
-                exceed your data limit, keep your average daily use of
-                ${requiredDailyAverage} GB in mind.`)
+                ${exceededLimitAmount} GB. Your current plan limit is
+                ${planLimit} GB. If you don't go over ${projectedUsage} GB for your
+                remainding days, then you won't have anything to worry about.`)
                 return;
         }
 
@@ -160,7 +154,7 @@ function dataUsage(planLimit, day, usage)
                     of data usage, you'll stay well within your plan limit.`)
                     return;
             }
-            else(averageUsed == averageLimit)
+            else
                 {
                     console.log(`Your data usage meets your average daily use,
                         try not to exceed it!`)
